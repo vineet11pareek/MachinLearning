@@ -1,0 +1,25 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"   # Ollama API port
+    volumes:
+      - ollama_data:/root/.ollama     # persistent model storage
+    restart: unless-stopped
+    environment:
+      - OLLAMA_KEEP_ALIVE=24h         # Keeps models loaded in RAM for fast response
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"      # REST API
+      - "6334:6334"      # gRPC (optional)
+    environment:
+      - QDRANT__SERVICE__GRPC_PORT=6334
+      - QDRANT__LOG_LEVEL=INFO
+
+volumes:
+  ollama_data:

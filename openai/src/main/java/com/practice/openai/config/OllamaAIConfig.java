@@ -16,7 +16,6 @@ import java.util.List;
 public class OllamaAIConfig {
 
 
-
     @Bean
     @Qualifier("ollamaClient")
     public ChatClient ollamaChatCleint(OllamaChatModel ollamaChatModel) {
